@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  */
 @Entity
 @Table(name = "Cliente")
-public class Cliente {
+public class EntidadCliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // SQL Server IDENTITY(1,1)
@@ -42,7 +42,7 @@ public class Cliente {
     @Column(name = "fecha_registro")
     private LocalDateTime fechaRegistro;
 
-    public Cliente() {}
+    public EntidadCliente() {}
 
     // Getters & Setters (SRP: solo acceso al estado)
 
