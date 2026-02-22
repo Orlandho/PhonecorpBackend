@@ -43,7 +43,7 @@ public class EntidadComprobante {
     @Column(name = "fecha_emision")
     private LocalDateTime fechaEmision;
 
-    public Comprobante() {}
+    public EntidadComprobante() {}
 
     // Getters & Setters
 

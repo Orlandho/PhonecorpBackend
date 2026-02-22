@@ -42,7 +42,7 @@ public class EntidadDetalleOrden {
     @Column(name = "subtotal", nullable = false, precision = 10, scale = 2)
     private BigDecimal subtotal;
 
-    public DetalleOrden() {}
+    public EntidadDetalleOrden() {}
 
     // Getters & Setters
 
