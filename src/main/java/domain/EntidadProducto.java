@@ -1,4 +1,4 @@
-package com.phonecorp.domain;
+package domain;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
