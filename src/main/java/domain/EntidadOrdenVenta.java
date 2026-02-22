@@ -32,7 +32,7 @@ public class EntidadOrdenVenta {
     @Column(name = "monto_total", nullable = false, precision = 10, scale = 2)
     private BigDecimal montoTotal;
 
-    public OrdenVenta() {}
+    public EntidadOrdenVenta() {}
 
     public Integer getIdOrden() { return idOrden; }
     public void setIdOrden(Integer idOrden) { this.idOrden = idOrden; }

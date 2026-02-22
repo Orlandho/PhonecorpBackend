@@ -31,7 +31,7 @@ public class EntidadInventario {
     @Column(name = "fecha_actualizacion")
     private LocalDateTime fechaActualizacion; // DEFAULT GETDATE()
 
-    public Inventario() {}
+    public EntidadInventario() {}
 
     public Integer getIdInventario() { return idInventario; }
     public void setIdInventario(Integer idInventario) { this.idInventario = idInventario; }
