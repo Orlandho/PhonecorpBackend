@@ -1,0 +1,10 @@
+controller\test.class
+config\test.class
+domain\EntidadComprobante.class
+domain\EntidadDetalleOrden.class
+com\phonecorp\phonecorpbackend\PhonecorpBackend.class
+service\test.class
+domain\EntidadCliente.class
+domain\EntidadProducto.class
+domain\EntidadTicketPostventa.class
+repository\test.class
