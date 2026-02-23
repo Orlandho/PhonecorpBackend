@@ -20,6 +20,6 @@ public interface IInventarioRepository extends JpaRepository<EntidadInventario, 
      * Se ajusto la consulta JPQL para apuntar al atributo stockFisico 
      * que representa la columna stock_fisico de la tabla Inventario.
      */
-    @Query("SELECT i.stockFisico FROM EntidadInventario i WHERE i.idProducto = :idProducto")
+    @Query("SELECT i.stock_fisico FROM Inventario i WHERE i.id_producto = :idProducto")
     int consultarStock(@Param("idProducto") Integer idProducto);
 }
