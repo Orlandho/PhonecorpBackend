@@ -1,18 +1,24 @@
-package config;
+package com.phonecorp.phonecorpbackend.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * CLASE DE CONFIGURACIÓN: CorsConfig
- * * Propósito: 
- * Habilitar y gestionar las políticas de Intercambio de Recursos de Origen Cruzado (CORS).
- * * Responsabilidades y programación:
- * - Crear un bean de configuración (ej. WebMvcConfigurer) para permitir que el frontend web
- * (que correrá en un puerto o dominio distinto) pueda consumir esta API sin ser bloqueado por el navegador.
- * - Especificar explícitamente qué orígenes (orígenes del frontend), métodos HTTP (GET, POST, PUT, DELETE) 
- * y cabeceras (Authorization, Content-Type) están permitidos.
+ * Politica CORS para permitir que el frontend consuma la API.
+ * Estado actual: permite cualquier origen (*) para fase de desarrollo.
+ * En produccion, reemplazar "*" con el dominio real del frontend.
  */
 @Configuration
-public class CorsConfig {
-    // Aquí definirás la configuración de mapeo CORS.
+public class CorsConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOriginPatterns("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
+                .allowedHeaders("*")
+                .allowCredentials(false)
+                .maxAge(3600);
+    }
 }

@@ -1,6 +1,6 @@
-package repository;
+package com.phonecorp.phonecorpbackend.repository;
 
-import domain.EntidadCliente;
+import com.phonecorp.phonecorpbackend.domain.EntidadCliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -1,4 +1,4 @@
-package dto;
+package com.phonecorp.phonecorpbackend.dto;
 
 /** DTO de entrada para procesar un pago y emitir comprobante. */
 public class PagoRequestDTO {

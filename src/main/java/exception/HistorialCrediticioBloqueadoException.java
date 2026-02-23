@@ -1,4 +1,4 @@
-package exception;
+package com.phonecorp.phonecorpbackend.exception;
 
 /**
  * Excepción lanzada cuando el cliente tiene historial crediticio "MALO"

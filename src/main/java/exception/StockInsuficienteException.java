@@ -1,4 +1,4 @@
-package exception;
+package com.phonecorp.phonecorpbackend.exception;
 
 /**
  * Excepción lanzada cuando un producto no tiene stock suficiente para la cantidad solicitada.

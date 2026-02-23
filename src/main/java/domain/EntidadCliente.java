@@ -1,4 +1,4 @@
-package domain;
+package com.phonecorp.phonecorpbackend.domain;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package dto;
+package com.phonecorp.phonecorpbackend.dto;
 
 import java.util.List;
 

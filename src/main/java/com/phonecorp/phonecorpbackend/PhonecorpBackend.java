@@ -1,16 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.phonecorp.phonecorpbackend;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 /**
- *
- * @author Orlando
+ * Punto de entrada de la aplicacion PhoneCorp Backend.
+ * @SpringBootApplication activa el escaneo automatico de componentes
+ * dentro del paquete raiz com.phonecorp.phonecorpbackend y sus subpaquetes.
  */
+@SpringBootApplication
 public class PhonecorpBackend {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        SpringApplication.run(PhonecorpBackend.class, args);
     }
 }
+

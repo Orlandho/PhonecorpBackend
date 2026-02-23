@@ -1,4 +1,4 @@
-package config;
+package com.phonecorp.phonecorpbackend.config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -42,10 +42,11 @@ public class ConexionBD {
     }
 
     /**
-     * 3. Método público y estático que actúa como punto de acceso global a la instancia
-     * @return La instancia única de ConexionBD
+     * 3. Metodo sincronizado (thread-safe) que actua como punto de acceso global a la instancia.
+     * "synchronized" garantiza que en entornos multi-hilo solo un hilo pueda crear la instancia.
+     * @return La instancia unica de ConexionBD
      */
-    public static ConexionBD getInstance() {
+    public static synchronized ConexionBD getInstance() {
         if (instancia == null) {
             instancia = new ConexionBD();
         }

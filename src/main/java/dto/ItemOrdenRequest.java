@@ -1,4 +1,4 @@
-package dto;
+package com.phonecorp.phonecorpbackend.dto;
 
 /** DTO de entrada para un ítem (línea de producto) al crear una orden de venta. */
 public class ItemOrdenRequest {

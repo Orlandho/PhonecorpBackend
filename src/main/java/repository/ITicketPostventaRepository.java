@@ -1,6 +1,6 @@
-package repository;
+package com.phonecorp.phonecorpbackend.repository;
 
-import domain.EntidadTicketPostventa;
+import com.phonecorp.phonecorpbackend.domain.EntidadTicketPostventa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

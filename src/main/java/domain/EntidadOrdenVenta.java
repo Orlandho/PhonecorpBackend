@@ -1,4 +1,4 @@
-package domain;
+package com.phonecorp.phonecorpbackend.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

@@ -1,4 +1,4 @@
-package service;
+package com.phonecorp.phonecorpbackend.service;
 
 import org.springframework.stereotype.Service;
 

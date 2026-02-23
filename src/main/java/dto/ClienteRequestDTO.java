@@ -1,4 +1,4 @@
-package dto;
+package com.phonecorp.phonecorpbackend.dto;
 
 /** DTO de entrada para registrar o actualizar un cliente. */
 public class ClienteRequestDTO {

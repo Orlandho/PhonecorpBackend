@@ -1,6 +1,6 @@
-package repository;
+package com.phonecorp.phonecorpbackend.repository;
 
-import domain.EntidadDetalleOrden;
+import com.phonecorp.phonecorpbackend.domain.EntidadDetalleOrden;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

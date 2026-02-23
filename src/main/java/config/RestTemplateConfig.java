@@ -1,19 +1,23 @@
-package config;
+package com.phonecorp.phonecorpbackend.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
 
 /**
- * CLASE DE CONFIGURACIÓN: RestTemplateConfig
- * * Propósito: 
- * Proveer clientes HTTP configurados e inyectables para la comunicación con servicios externos.
- * * Responsabilidades y programación:
- * - Instanciar y exponer beans de RestTemplate o WebClient.
- * - Estos beans serán inyectados en los servicios correspondientes para realizar las peticiones
- * de validación de identidad hacia RENIEC y la emisión de comprobantes hacia SUNAT/OSE.
- * - Configurar *timeouts* (tiempos de espera) razonables para evitar que tu backend se cuelgue
- * si los servicios de SUNAT o RENIEC demoran en responder.
+ * Provee clientes HTTP configurados e inyectables para servicios externos.
+ * El bean RestTemplate se inyecta en ReniecService y SunatService
+ * cuando se implemente la integracion real con los APIs externos.
  */
 @Configuration
 public class RestTemplateConfig {
-    // Aquí declararás los métodos anotados con @Bean que devuelvan instancias de RestTemplate.
+
+    @Bean
+    public RestTemplate restTemplate() {
+        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+        factory.setConnectTimeout(5_000);   // 5 segundos para establecer conexion
+        factory.setReadTimeout(10_000);     // 10 segundos para leer la respuesta
+        return new RestTemplate(factory);
+    }
 }

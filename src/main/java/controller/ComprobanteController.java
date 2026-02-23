@@ -1,9 +1,9 @@
-package controller;
+package com.phonecorp.phonecorpbackend.controller;
 
-import domain.EntidadComprobante;
-import domain.EntidadPago;
-import repository.IComprobanteRepository;
-import repository.IPagoRepository;
+import com.phonecorp.phonecorpbackend.domain.EntidadComprobante;
+import com.phonecorp.phonecorpbackend.domain.EntidadPago;
+import com.phonecorp.phonecorpbackend.repository.IComprobanteRepository;
+import com.phonecorp.phonecorpbackend.repository.IPagoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

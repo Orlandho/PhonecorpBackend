@@ -1,4 +1,4 @@
-package dto;
+package com.phonecorp.phonecorpbackend.dto;
 
 /** DTO de entrada para registrar un ticket de postventa. */
 public class TicketPostventaRequestDTO {
