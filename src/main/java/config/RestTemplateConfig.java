@@ -8,6 +8,6 @@ package config;
  *
  * @author Orlando
  */
-public class test {
+public class RestTemplateConfig {
     
 }
