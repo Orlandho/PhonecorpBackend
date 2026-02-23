@@ -11,11 +11,11 @@ import java.util.Optional;
 @Repository
 public interface IComprobanteRepository extends JpaRepository<EntidadComprobante, Integer> {
 
-    @Query("SELECT c FROM EntidadComprobante c WHERE c.idPago = :idPago")
+    @Query("SELECT c FROM EntidadComprobante c WHERE c.pago.idPago = :idPago")
     Optional<EntidadComprobante> buscarPorIdPago(@Param("idPago") Integer idPago);
 
     @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END " +
-           "FROM EntidadComprobante c WHERE c.idPago = :idPago")
+           "FROM EntidadComprobante c WHERE c.pago.idPago = :idPago")
     boolean existePorIdPago(@Param("idPago") Integer idPago);
 
     @Query("SELECT c FROM EntidadComprobante c " +

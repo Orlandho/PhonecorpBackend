@@ -4,10 +4,9 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 /**
- * ENTIDAD - Comprobante
- *
- * SOLID - SRP:
- * Representa únicamente la estructura persistente de la tabla Comprobante.
+ * BCE - Entidad Comprobante.
+ * SRP: representa únicamente la estructura persistente de la tabla Comprobante.
+ * Relación JPA 1:1 hacia EntidadPago (OneToOne).
  */
 @Entity
 @Table(name = "Comprobante")
@@ -19,14 +18,12 @@ public class EntidadComprobante {
     private Integer idComprobante;
 
     /**
-     * Relación 1:1 con Pago
-     * UNIQUE en BD.
-     *
-     * SOLID - OCP:
-     * Si cambia la relación futura, solo modificamos esta capa de mapeo.
+     * Relación 1:1 con Pago.
+     * SOLID - OCP: si cambia la relación futura, solo modificamos esta capa de mapeo.
      */
-    @Column(name = "id_pago", nullable = false, unique = true)
-    private Integer idPago;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_pago", nullable = false, unique = true)
+    private EntidadPago pago;
 
     @Column(name = "tipo_comprobante", nullable = false, length = 20)
     private String tipoComprobante;
@@ -45,13 +42,11 @@ public class EntidadComprobante {
 
     public EntidadComprobante() {}
 
-    // Getters & Setters
-
     public Integer getIdComprobante() { return idComprobante; }
     public void setIdComprobante(Integer idComprobante) { this.idComprobante = idComprobante; }
 
-    public Integer getIdPago() { return idPago; }
-    public void setIdPago(Integer idPago) { this.idPago = idPago; }
+    public EntidadPago getPago() { return pago; }
+    public void setPago(EntidadPago pago) { this.pago = pago; }
 
     public String getTipoComprobante() { return tipoComprobante; }
     public void setTipoComprobante(String tipoComprobante) { this.tipoComprobante = tipoComprobante; }

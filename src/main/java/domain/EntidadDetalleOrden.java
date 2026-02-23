@@ -1,13 +1,13 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 /**
- * ENTIDAD - DetalleOrden
- *
- * SOLID - SRP:
- * Representa una línea de detalle de una Orden de Venta.
+ * BCE - Entidad DetalleOrden.
+ * SRP: representa una línea de detalle de una Orden de Venta.
+ * Relaciones JPA hacia EntidadOrdenVenta (ManyToOne) y EntidadProducto (ManyToOne).
  */
 @Entity
 @Table(
@@ -23,19 +23,20 @@ public class EntidadDetalleOrden {
     @Column(name = "id_detalle")
     private Integer idDetalle;
 
-    @Column(name = "id_orden", nullable = false)
-    private Integer idOrden;
+    // @JsonIgnore en la back-reference para evitar recursión infinita
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_orden", nullable = false)
+    private EntidadOrdenVenta orden;
 
-    @Column(name = "id_producto", nullable = false)
-    private Integer idProducto;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_producto", nullable = false)
+    private EntidadProducto producto;
 
     @Column(name = "cantidad", nullable = false)
     private Integer cantidad;
 
-    /**
-     * DECIMAL(10,2) → BigDecimal
-     * Evita errores financieros (principio de precisión monetaria).
-     */
+    /** DECIMAL(10,2) → BigDecimal para precisión monetaria. */
     @Column(name = "precio_pactado", nullable = false, precision = 10, scale = 2)
     private BigDecimal precioPactado;
 
@@ -44,16 +45,14 @@ public class EntidadDetalleOrden {
 
     public EntidadDetalleOrden() {}
 
-    // Getters & Setters
-
     public Integer getIdDetalle() { return idDetalle; }
     public void setIdDetalle(Integer idDetalle) { this.idDetalle = idDetalle; }
 
-    public Integer getIdOrden() { return idOrden; }
-    public void setIdOrden(Integer idOrden) { this.idOrden = idOrden; }
+    public EntidadOrdenVenta getOrden() { return orden; }
+    public void setOrden(EntidadOrdenVenta orden) { this.orden = orden; }
 
-    public Integer getIdProducto() { return idProducto; }
-    public void setIdProducto(Integer idProducto) { this.idProducto = idProducto; }
+    public EntidadProducto getProducto() { return producto; }
+    public void setProducto(EntidadProducto producto) { this.producto = producto; }
 
     public Integer getCantidad() { return cantidad; }
     public void setCantidad(Integer cantidad) { this.cantidad = cantidad; }

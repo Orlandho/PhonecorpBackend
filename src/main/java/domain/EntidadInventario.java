@@ -4,8 +4,9 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 /**
- * SRP (Responsabilidad Única - SOLID):
- * Esta clase solo representa la tabla Inventario. Cero lógica de negocio.
+ * BCE - Entidad Inventario.
+ * SRP: solo representa la tabla Inventario. Cero lógica de negocio.
+ * Relación JPA hacia EntidadProducto (ManyToOne).
  */
 @Entity
 @Table(name = "Inventario")
@@ -16,28 +17,29 @@ public class EntidadInventario {
     @Column(name = "id_inventario")
     private Integer idInventario;
 
-    @Column(name = "id_producto", nullable = false)
-    private Integer idProducto;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_producto", nullable = false)
+    private EntidadProducto producto;
 
     @Column(name = "stock_fisico", nullable = false)
     private Integer stockFisico;
 
     @Column(name = "stock_comprometido")
-    private Integer stockComprometido; // DEFAULT 0 en BD
+    private Integer stockComprometido;
 
     @Column(name = "ubicacion_almacen", columnDefinition = "NVARCHAR(50)")
     private String ubicacionAlmacen;
 
     @Column(name = "fecha_actualizacion")
-    private LocalDateTime fechaActualizacion; // DEFAULT GETDATE()
+    private LocalDateTime fechaActualizacion;
 
     public EntidadInventario() {}
 
     public Integer getIdInventario() { return idInventario; }
     public void setIdInventario(Integer idInventario) { this.idInventario = idInventario; }
 
-    public Integer getIdProducto() { return idProducto; }
-    public void setIdProducto(Integer idProducto) { this.idProducto = idProducto; }
+    public EntidadProducto getProducto() { return producto; }
+    public void setProducto(EntidadProducto producto) { this.producto = producto; }
 
     public Integer getStockFisico() { return stockFisico; }
     public void setStockFisico(Integer stockFisico) { this.stockFisico = stockFisico; }

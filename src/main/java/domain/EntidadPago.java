@@ -1,14 +1,14 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * ENTIDAD - Pago
- *
- * Siguiendo el informe: Componente Entidad del patron BCE para la gestion de pagos.
- * SOLID - SRP: Representa unicamente la estructura persistente de la tabla Pago.
+ * BCE - Entidad Pago.
+ * SRP: representa únicamente la estructura persistente de la tabla Pago.
+ * Relación JPA hacia EntidadOrdenVenta (ManyToOne).
  */
 @Entity
 @Table(name = "Pago")
@@ -19,8 +19,11 @@ public class EntidadPago {
     @Column(name = "id_pago")
     private Integer idPago;
 
-    @Column(name = "id_orden", nullable = false)
-    private Integer idOrden;
+    // @JsonIgnore en la back-reference para evitar serialización circular
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_orden", nullable = false)
+    private EntidadOrdenVenta orden;
 
     @Column(name = "monto_total", nullable = false, precision = 10, scale = 2)
     private BigDecimal montoTotal;
@@ -39,8 +42,8 @@ public class EntidadPago {
     public Integer getIdPago() { return idPago; }
     public void setIdPago(Integer idPago) { this.idPago = idPago; }
 
-    public Integer getIdOrden() { return idOrden; }
-    public void setIdOrden(Integer idOrden) { this.idOrden = idOrden; }
+    public EntidadOrdenVenta getOrden() { return orden; }
+    public void setOrden(EntidadOrdenVenta orden) { this.orden = orden; }
 
     public BigDecimal getMontoTotal() { return montoTotal; }
     public void setMontoTotal(BigDecimal montoTotal) { this.montoTotal = montoTotal; }

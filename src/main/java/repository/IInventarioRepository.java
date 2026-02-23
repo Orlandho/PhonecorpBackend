@@ -11,9 +11,8 @@ import java.util.Optional;
 @Repository
 public interface IInventarioRepository extends JpaRepository<EntidadInventario, Integer> {
 
-    @Query("SELECT i.stockFisico FROM EntidadInventario i WHERE i.idProducto = :idProducto")
+    @Query("SELECT i.stockFisico FROM EntidadInventario i WHERE i.producto.idProducto = :idProducto")
     Optional<Integer> consultarStock(@Param("idProducto") Integer idProducto);
 
-    // Alternativa sin JPQL (Spring Data lo genera):
-    Optional<EntidadInventario> findByIdProducto(Integer idProducto);
+    Optional<EntidadInventario> findByProducto_IdProducto(Integer idProducto);
 }
