@@ -5,13 +5,11 @@ import repository.IProductoRepository;
 import repository.IInventarioRepository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
+
 import java.util.List;
 
-/**
- * Controlador: GestorCatalogo
- * Responsabilidad: Mostrar catálogo y consultar stock.
- * Dependencias: IProductoRepository, IInventarioRepository.
- */
 @RestController
 @RequestMapping("/api/catalogo")
 public class CatalogoController {
@@ -19,16 +17,15 @@ public class CatalogoController {
     private final IProductoRepository productoRepository;
     private final IInventarioRepository inventarioRepository;
 
-    // Inyección de dependencias mediante constructor para mantener bajo acoplamiento
     @Autowired
-    public CatalogoController(IProductoRepository productoRepository, IInventarioRepository inventarioRepository) {
+    public CatalogoController(IProductoRepository productoRepository,
+                               IInventarioRepository inventarioRepository) {
         this.productoRepository = productoRepository;
         this.inventarioRepository = inventarioRepository;
     }
 
     /**
-     * Metodo listarProductos
-     * Retorna la lista de smartphones disponibles en el catálogo.
+     * Lista todos los productos del catálogo.
      */
     @GetMapping("/productos")
     public List<EntidadProducto> listarProductos() {
@@ -36,12 +33,21 @@ public class CatalogoController {
     }
 
     /**
-     * Metodo consultarStock
-     * Recibe el identificador del producto y consulta su disponibilidad física en el Kardex.
+     * Consulta el stock físico de un producto.
      */
     @GetMapping("/productos/{idProducto}/stock")
     public int consultarStock(@PathVariable Integer idProducto) {
-        // Se asume que IInventarioRepository tiene el método declarado en el diagrama de diseño
-        return inventarioRepository.consultarStock(idProducto);
+
+        // Validar que el producto exista
+        if (!productoRepository.existsById(idProducto)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Producto no encontrado con ID: " + idProducto
+            );
+        }
+
+        // Si no existe inventario, retorna 0 (sin stock)
+        return inventarioRepository.consultarStock(idProducto)
+                .orElse(0);
     }
 }
