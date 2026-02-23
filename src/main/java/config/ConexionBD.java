@@ -23,10 +23,8 @@ public class ConexionBD {
     // Objeto de conexión nativo de Java
     private Connection conexion;
 
-    // Credenciales extraídas de application.properties
-    private final String URL = "jdbc:sqlserver://localhost:1433;databaseName=DB_PhoneCorp;encrypt=true;trustServerCertificate=true";
-    private final String USUARIO = "tu_usuario_sql";
-    private final String CLAVE = "tu_contraseña_sql";
+    // Credenciales para Autenticación de Windows
+    private final String URL = "jdbc:sqlserver://localhost:1433;databaseName=DB_PhoneCorp;integratedSecurity=true;encrypt=true;trustServerCertificate=true";
 
     /**
      * 2. Constructor privado para evitar que otras clases creen instancias con 'new'
@@ -34,8 +32,8 @@ public class ConexionBD {
     private ConexionBD() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            this.conexion = DriverManager.getConnection(URL, USUARIO, CLAVE);
-            System.out.println("Conexión a DB_PhoneCorp establecida exitosamente.");
+            this.conexion = DriverManager.getConnection(URL);
+            System.out.println("Conexión a DB_PhoneCorp establecida exitosamente mediante Autenticación de Windows.");
         } catch (ClassNotFoundException e) {
             System.out.println("Error de Driver: No se encontró el driver de SQL Server.");
         } catch (SQLException e) {
