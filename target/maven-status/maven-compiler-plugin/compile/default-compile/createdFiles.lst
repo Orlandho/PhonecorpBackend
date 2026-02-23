@@ -1,10 +1,7 @@
-controller\test.class
-config\test.class
-domain\EntidadComprobante.class
-domain\EntidadDetalleOrden.class
 com\phonecorp\phonecorpbackend\PhonecorpBackend.class
-service\test.class
 domain\EntidadCliente.class
+domain\EntidadDetalleOrden.class
+service\test.class
+domain\EntidadComprobante.class
 domain\EntidadProducto.class
 domain\EntidadTicketPostventa.class
-repository\test.class

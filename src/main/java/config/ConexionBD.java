@@ -1,5 +1,8 @@
 package config;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 /**
  * CLASE DE CONFIGURACIÓN: ConexionBD
  * * Propósito: 
@@ -14,4 +17,62 @@ package config;
  */
 public class ConexionBD {
     // Aquí implementarás la lógica clásica del patrón Singleton.
+    // 1. Variable estática y privada que almacenará la única instancia de la clase
+    private static ConexionBD instancia;
+    
+    // Objeto de conexión nativo de Java
+    private Connection conexion;
+
+    // Credenciales extraídas de application.properties
+    private final String URL = "jdbc:sqlserver://localhost:1433;databaseName=DB_PhoneCorp;encrypt=true;trustServerCertificate=true";
+    private final String USUARIO = "tu_usuario_sql";
+    private final String CLAVE = "tu_contraseña_sql";
+
+    /**
+     * 2. Constructor privado para evitar que otras clases creen instancias con 'new'
+     */
+    private ConexionBD() {
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            this.conexion = DriverManager.getConnection(URL, USUARIO, CLAVE);
+            System.out.println("Conexión a DB_PhoneCorp establecida exitosamente.");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error de Driver: No se encontró el driver de SQL Server.");
+        } catch (SQLException e) {
+            System.out.println("Error de Conexión: " + e.getMessage());
+        }
+    }
+
+    /**
+     * 3. Método público y estático que actúa como punto de acceso global a la instancia
+     * @return La instancia única de ConexionBD
+     */
+    public static ConexionBD getInstance() {
+        if (instancia == null) {
+            instancia = new ConexionBD();
+        }
+        return instancia;
+    }
+
+    /**
+     * Método para obtener el objeto Connection y ejecutar consultas
+     */
+    public Connection getConexion() {
+        return conexion;
+    }
+
+    /**
+     * Método para liberar los recursos manualmente si fuera necesario
+     */
+    public void cerrarConexion() {
+        if (conexion != null) {
+            try {
+                conexion.close();
+                System.out.println("Conexión cerrada.");
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar la conexión: " + e.getMessage());
+            }
+        }
+    }
+    
 }
