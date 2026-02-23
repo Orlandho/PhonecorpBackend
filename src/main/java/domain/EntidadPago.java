@@ -25,7 +25,7 @@ public class EntidadPago {
     @JoinColumn(name = "id_orden", nullable = false)
     private EntidadOrdenVenta orden;
 
-    @Column(name = "monto_total", nullable = false, precision = 10, scale = 2)
+    @Column(name = "monto_cancelado", nullable = false, precision = 10, scale = 2)
     private BigDecimal montoTotal;
 
     @Column(name = "metodo_pago", nullable = false, length = 50)
