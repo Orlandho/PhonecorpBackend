@@ -9,6 +9,71 @@
 
 ---
 
+## Despliegue en Servidor Ubuntu 24.04
+
+### Requisitos del servidor
+- Java 21 instalado: `sudo apt install -y openjdk-21-jre-headless`
+- SQL Server accesible desde el servidor (puede ser otra maquina en la misma red)
+
+### Paso 1: Copiar el JAR al servidor
+```bash
+scp target/PhonecorpBackend-1.0-SNAPSHOT.jar usuario@IP_SERVIDOR:/opt/phonecorp/
+```
+
+### Paso 2: Configurar las variables de entorno en el servidor
+```bash
+export DB_URL=jdbc:sqlserver://IP_SQL_SERVER:1433;databaseName=DB_PhoneCorp;encrypt=true;trustServerCertificate=true
+export DB_USERNAME=sa
+export DB_PASSWORD=tuPasswordSegura
+```
+
+### Paso 3: Ejecutar el backend con el perfil de produccion
+```bash
+java -jar -Dspring.profiles.active=prod /opt/phonecorp/PhonecorpBackend-1.0-SNAPSHOT.jar
+```
+
+### Paso 4 (opcional): Ejecutar como servicio para que arranque automaticamente
+Crea el archivo `/etc/systemd/system/phonecorp.service`:
+```ini
+[Unit]
+Description=PhoneCorp Backend
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/opt/phonecorp
+Environment="DB_URL=jdbc:sqlserver://IP_SQL_SERVER:1433;databaseName=DB_PhoneCorp;encrypt=true;trustServerCertificate=true"
+Environment="DB_USERNAME=sa"
+Environment="DB_PASSWORD=tuPasswordSegura"
+ExecStart=/usr/bin/java -jar -Dspring.profiles.active=prod /opt/phonecorp/PhonecorpBackend-1.0-SNAPSHOT.jar
+SuccessExitStatus=143
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Luego activa el servicio:
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable phonecorp
+sudo systemctl start phonecorp
+sudo systemctl status phonecorp
+```
+
+Ver logs en tiempo real:
+```bash
+sudo journalctl -u phonecorp -f
+```
+
+### Nota sobre el firewall
+Si el puerto 8080 no es accesible desde fuera, abrelo:
+```bash
+sudo ufw allow 8080
+```
+
+---
+
 ## Formato de Errores
 
 Cuando una peticion falla, el backend responde con este formato:
